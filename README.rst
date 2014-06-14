@@ -27,13 +27,13 @@ relayed to InfluxDB.
 
 .. code-block:: ini
 
-    [iotrelay-tempodb]
+    [iotrelay-influxdb]
     reading types = power, weather
     host = influxdb hostname
     username = influxdb username
     password = influxdb password
 
-By default iotrelay-tempodb will batch 30 readings of each type before
+By default iotrelay-influxdb will batch 30 readings of each type before
 sending the batch to InfluxDB. In the previous example, two separate
 batches would be maintained for power and weather readings. The batch
 size may be changed by adding the ``batch size`` option to the
@@ -41,7 +41,7 @@ size may be changed by adding the ``batch size`` option to the
 
 .. code-block:: ini
 
-    [iotrelay-influx]
+    [iotrelay-influxdb]
     batch size = 30
     reading types = power, weather
     host = influxdb hostname
