@@ -1,3 +1,6 @@
+IoT Relay - InfluxDB
+----------------------------------------------------------------------------
+
 iotrelay-influxdb is a data handler plugin for IoT Relay. It watches for
 data it has registered an interest in and relays it in batches to a
 InfluxDB time series database. See the `IoT Relay Documentation
