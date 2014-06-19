@@ -40,16 +40,18 @@ class Handler(object):
     def send_reading(self, series_key, reading_type, points):
         database_option_key = "{0} base".format(reading_type)
         database = self.config.get(database_option_key, self.database)
+        logger.debug('creating database: {0}'.format(database))
         try:
-            logger.debug('creating database: {0}'.format(database))
             self.client.create_database(database)
+        # TODO: send pull request to upstream influxdb library so that catch-all
+        # exception handling is not required.
         except Exception as e:
             logger.warning(e)
         db.switch_db(database)
         series = {'name': database, 'columns': ['time', series_key],
                   'points': points}
+        logger.debug("write series: {0!s}".format(series))
         try:
-            logger.debug("write series: {0!s}".format(series))
             self.client.write_points([series])
         except Exception as e:
             logger.error('Unable to send {0} to InfluxDB. {1!s}'.format(
