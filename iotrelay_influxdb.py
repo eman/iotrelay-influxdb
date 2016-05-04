@@ -8,7 +8,7 @@ from collections import defaultdict
 from influxdb import client as influxdb
 
 logger = logging.getLogger(__name__)
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 DEFAULT_BATCH_SIZE = 30
 INFLUXDB_PORT = 8086
 
@@ -23,7 +23,7 @@ class Handler(object):
         username = config['username']
         password = config['password']
         self.database = config['database']
-        self.client = influxdb.InfluxDBClient(host, port, username, password)
+        self.client = influxdb.InfluxDBClient(host, port, username, password, timeout=2)
 
     def set_reading(self, reading):
         logger.debug('influxdb setting: {0!s}'.format(reading))
@@ -47,7 +47,7 @@ class Handler(object):
         # exception handling is not required.
         except Exception as e:
             logger.warning(e)
-        db.switch_db(database)
+        self.client.switch_db(database)
         series = {'name': database, 'columns': ['time', series_key],
                   'points': points}
         logger.debug("write series: {0!s}".format(series))
