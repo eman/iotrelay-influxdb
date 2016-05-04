@@ -1,5 +1,5 @@
 '''
-Copyright (c) 2015, Emmanuel Levijarvi
+Copyright (c) 2016, Emmanuel Levijarvi
 All rights reserved.
 License BSD
 '''
