@@ -18,7 +18,7 @@ setup(name='iotrelay-influxdb',
       license='BSD',
       py_modules=['iotrelay_influxdb'],
       test_suite='tests',
-      install_requires=['iotrelay', 'influxdb'],
+      install_requires=['iotrelay', 'influxdb==0.1.11'],
       tests_require=['iotrelay'],
       classifiers=[
           'Development Status :: 4 - Beta',

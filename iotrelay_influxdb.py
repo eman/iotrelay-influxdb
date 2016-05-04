@@ -23,12 +23,14 @@ class Handler(object):
         username = config['username']
         password = config['password']
         self.database = config['database']
-        self.client = influxdb.InfluxDBClient(host, port, username, password, timeout=2)
+        self.client = influxdb.InfluxDBClient(host, port, username, password,
+                                              timeout=2)
 
     def set_reading(self, reading):
         logger.debug('influxdb setting: {0!s}'.format(reading))
         points = self.readings[(reading.series_key, reading.reading_type)]
-        points.append((reading.timestamp, reading.value))
+        timestamp = calendar.timegm(reading.timestamp.timetuple())
+        points.append((timestamp, reading.value))
         batch_option = "{0} batch size".format(reading.reading_type)
         if len(points) >= int(self.config.get(batch_option, self.batch_size)):
             self.send_reading(reading.series_key, reading.reading_type, points)
