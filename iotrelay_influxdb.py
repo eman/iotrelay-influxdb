@@ -46,9 +46,7 @@ class Handler(object):
         logger.debug('creating database: {0}'.format(database))
         try:
             self.client.create_database(database)
-        # TODO: send pull request to upstream influxdb library so that catch-all
-        # exception handling is not required.
-        except Exception as e:
+        except influxdb.InfluxDBClientError as e:
             logger.warning(e)
         self.client.switch_db(database)
         series = {'name': database, 'columns': ['time', series_key],
