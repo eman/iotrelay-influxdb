@@ -9,7 +9,7 @@ from collections import defaultdict
 import influxdb
 
 logger = logging.getLogger(__name__)
-__version__ = "1.0.3"
+__version__ = "1.1.0"
 DEFAULT_BATCH_SIZE = 30
 INFLUXDB_PORT = 8086
 
