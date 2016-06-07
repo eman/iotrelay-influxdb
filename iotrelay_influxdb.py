@@ -6,7 +6,7 @@ License BSD
 import logging
 import calendar
 from collections import defaultdict
-from influxdb import client as influxdb
+import influxdb
 
 logger = logging.getLogger(__name__)
 __version__ = "1.0.3"
