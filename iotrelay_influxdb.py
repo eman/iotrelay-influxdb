@@ -45,7 +45,7 @@ class Handler(object):
         database = self.config.get(database_option_key, self.database)
         logger.debug('creating database: {0}'.format(database))
         try:
-            self.client.create_database(database)
+            self.client.create_database(database, if_not_exists=True)
         except influxdb.InfluxDBClientError as e:
             logger.warning(e)
         self.client.switch_db(database)
