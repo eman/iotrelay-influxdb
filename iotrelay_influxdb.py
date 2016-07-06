@@ -43,12 +43,14 @@ class Handler(object):
     def send_reading(self, series_key, reading_type, points):
         database_option_key = "{0} base".format(reading_type)
         database = self.config.get(database_option_key, self.database)
-        logger.debug('creating database: {0}'.format(database))
-        try:
-            self.client.create_database(database)
-        except influxdb.exceptions.InfluxDBClientError as e:
-            logger.debug(e)
-        self.client.switch_db(database)
+        db_list = self.client.get_list_database()
+        if database not in [db['name'] for db in db_list]:
+            logger.debug('creating database: {0}'.format(database))
+            try:
+                self.client.create_database(database)
+            except influxdb.exceptions.InfluxDBClientError as e:
+                logger.debug(e)
+        self.client.switch_database(database)
         series = {'name': database, 'columns': ['time', series_key],
                   'points': points}
         logger.debug("write series: {0!s}".format(series))
