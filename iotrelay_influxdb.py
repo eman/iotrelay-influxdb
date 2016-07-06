@@ -45,19 +45,20 @@ class Handler(object):
         database = self.config.get(database_option_key, self.database)
         db_list = self.client.get_list_database()
         if database not in [db['name'] for db in db_list]:
-            logger.debug('creating database: {0}'.format(database))
+            logger.info('creating database: {0}'.format(database))
             try:
                 self.client.create_database(database)
             except influxdb.exceptions.InfluxDBClientError as e:
-                logger.debug(e)
+                logger.exception(e)
         self.client.switch_database(database)
+        logger.debug(points)
         series = {'name': database, 'columns': ['time', series_key],
                   'points': points}
         logger.debug("write series: {0!s}".format(series))
         try:
             self.client.write_points([series])
         except Exception as e:
-            logger.error('Unable to send {0} to InfluxDB. {1!s}'.format(
-                         series_key, e))
+            logger.error('Unable to send {0} to InfluxDB.'.format(series_key))
+            logger.exception(e)
         else:
             del self.readings[(series_key, reading_type)]
