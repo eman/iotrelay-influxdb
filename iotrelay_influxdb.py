@@ -44,7 +44,10 @@ class Handler(object):
         database_option_key = "{0} base".format(reading_type)
         database = self.config.get(database_option_key, self.database)
         logger.debug('creating database: {0}'.format(database))
-        self.client.create_database(database, if_not_exists=True)
+        try:
+            self.client.create_database(database)
+        except influxdb.exceptions.InfluxDBClientError as e:
+            logger.debug(e)
         self.client.switch_db(database)
         series = {'name': database, 'columns': ['time', series_key],
                   'points': points}
