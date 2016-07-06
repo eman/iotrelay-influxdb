@@ -9,7 +9,7 @@ for rst in ('README.rst', 'LICENSE.rst'):
         long_descriptions.append(f.read())
 
 setup(name='iotrelay-influxdb',
-      version='1.1.1',
+      version='1.1.2',
       description='InfluxDB handler module for iotrelay',
       long_description='\n\n'.join(long_descriptions),
       author='Emmanuel Levijarvi',
