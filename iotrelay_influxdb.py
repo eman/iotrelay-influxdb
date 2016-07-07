@@ -9,7 +9,7 @@ from collections import defaultdict
 import influxdb
 
 logger = logging.getLogger(__name__)
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 DEFAULT_BATCH_SIZE = 30
 HOST = 'localhost'
 USERNAME = 'root'
