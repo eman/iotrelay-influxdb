@@ -31,7 +31,9 @@ class Handler(object):
         logger.debug('influxdb setting: {0!s}'.format(reading))
         points = self.readings[(reading.series_key, reading.reading_type)]
         timestamp = calendar.timegm(reading.timestamp.timetuple())
-        points.append((timestamp, reading.value))
+        point = {'measurement': reading.reading_type, 'time': timestamp,
+                 'fields': {'value': reading.value}}
+        points.append(point)
         batch_option = "{0} batch size".format(reading.reading_type)
         if len(points) >= int(self.config.get(batch_option, self.batch_size)):
             self.send_reading(reading.series_key, reading.reading_type, points)
@@ -52,11 +54,9 @@ class Handler(object):
                 logger.exception(e)
         self.client.switch_database(database)
         logger.debug(points)
-        series = {'name': database, 'columns': ['time', series_key],
-                  'points': points}
-        logger.debug("write series: {0!s}".format(series))
+        logger.debug("write points: {0!s}".format(points))
         try:
-            self.client.write_points([series])
+            self.client.write_points(points)
         except Exception as e:
             logger.error('Unable to send {0} to InfluxDB.'.format(series_key))
             logger.exception(e)
