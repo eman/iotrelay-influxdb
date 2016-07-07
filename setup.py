@@ -20,7 +20,7 @@ setup(name='iotrelay-influxdb',
       py_modules=['iotrelay_influxdb'],
       test_suite='tests',
       install_requires=['iotrelay', 'influxdb'],
-      tests_require=['iotrelay'],
+      tests_require=['iotrelay', 'influxdb'],
       classifiers=[
           'Development Status :: 4 - Beta',
           'Intended Audience :: Developers',

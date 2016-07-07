@@ -11,6 +11,10 @@ import influxdb
 logger = logging.getLogger(__name__)
 __version__ = "1.4.0"
 DEFAULT_BATCH_SIZE = 30
+HOST = 'localhost'
+USERNAME = 'root'
+PASSWORD = 'root'
+DATABASE = 'iotrelay'
 INFLUXDB_PORT = 8086
 
 
@@ -20,10 +24,10 @@ class Handler(object):
         self.config = config
         self.batch_size = int(config.get('batch size', DEFAULT_BATCH_SIZE))
         port = config.get('influx db port', INFLUXDB_PORT)
-        host = config['host']
-        username = config['username']
-        password = config['password']
-        self.database = config['database']
+        host = config.get('host', HOST)
+        username = config.get('username', USERNAME)
+        password = config.get('password', PASSWORD)
+        self.database = config.get('database', DATABASE)
         self.client = influxdb.InfluxDBClient(host, port, username, password,
                                               timeout=2)
 
