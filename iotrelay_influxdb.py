@@ -35,8 +35,9 @@ class Handler(object):
         logger.debug('influxdb setting: {0!s}'.format(reading))
         points = self.readings[(reading.series_key, reading.reading_type)]
         timestamp = calendar.timegm(reading.timestamp.timetuple())
-        point = {'measurement': reading.reading_type, 'time': timestamp,
+        point = {'measurement': reading.series_key, 'time': timestamp,
                  'fields': {'value': reading.value}}
+        logger.debug('Received point: {0!s}'.format(point))
         points.append(point)
         batch_option = "{0} batch size".format(reading.reading_type)
         if len(points) >= int(self.config.get(batch_option, self.batch_size)):
