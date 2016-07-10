@@ -4,12 +4,13 @@ All rights reserved.
 License BSD
 '''
 import logging
-import calendar
 from collections import defaultdict
 import influxdb
 
 logger = logging.getLogger(__name__)
+
 __version__ = "1.5.0"
+
 DEFAULT_BATCH_SIZE = 30
 HOST = 'localhost'
 USERNAME = 'root'
@@ -34,8 +35,7 @@ class Handler(object):
     def set_reading(self, reading):
         logger.debug('influxdb setting: {0!s}'.format(reading))
         points = self.readings[(reading.series_key, reading.reading_type)]
-        timestamp = calendar.timegm(reading.timestamp.timetuple())
-        point = {'measurement': reading.series_key, 'time': timestamp,
+        point = {'measurement': reading.series_key, 'time': reading.timestamp,
                  'fields': {'value': reading.value}}
         logger.debug('Received point: {0!s}'.format(point))
         points.append(point)
