@@ -9,7 +9,7 @@ import influxdb
 
 logger = logging.getLogger(__name__)
 
-__version__ = "1.5.0"
+__version__ = "1.5.1"
 
 DEFAULT_BATCH_SIZE = 30
 HOST = 'localhost'
