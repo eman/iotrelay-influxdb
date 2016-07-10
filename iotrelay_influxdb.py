@@ -1,7 +1,7 @@
 '''
 Copyright (c) 2016, Emmanuel Levijarvi
 All rights reserved.
-License BSD
+License BSD 2-Clause
 '''
 import logging
 from collections import defaultdict
@@ -37,6 +37,8 @@ class Handler(object):
         points = self.readings[(reading.series_key, reading.reading_type)]
         point = {'measurement': reading.series_key, 'time': reading.timestamp,
                  'fields': {'value': reading.value}}
+        if reading.tags:
+            point['tags'] = reading.tags
         logger.debug('Received point: {0!s}'.format(point))
         points.append(point)
         batch_option = "{0} batch size".format(reading.reading_type)
