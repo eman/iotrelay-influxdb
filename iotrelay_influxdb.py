@@ -15,6 +15,8 @@ DEFAULT_BATCH_SIZE = 30
 HOST = 'localhost'
 USERNAME = 'root'
 PASSWORD = 'root'
+USE_SSL = False
+VERIFY_SSL = True
 DATABASE = 'iotrelay'
 INFLUXDB_PORT = 8086
 
@@ -25,12 +27,14 @@ class Handler(object):
         self.config = config
         self.batch_size = int(config.get('batch size', DEFAULT_BATCH_SIZE))
         port = config.get('influx db port', INFLUXDB_PORT)
+        use_ssl = config.get('use_ssl', USE_SSL)
         host = config.get('host', HOST)
         username = config.get('username', USERNAME)
         password = config.get('password', PASSWORD)
         self.database = config.get('database', DATABASE)
-        self.client = influxdb.InfluxDBClient(host, port, username, password,
-                                              timeout=2)
+        self.client = influxdb.InfluxDBClient(
+            host, port, username, password, ssl=use_ssl, verify_ssl=VERIFY_SSL,
+            timeout=2)
 
     def set_reading(self, reading):
         logger.debug('influxdb setting: {0!s}'.format(reading))
