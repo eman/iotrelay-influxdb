@@ -14,7 +14,7 @@ iotrelay-influxdb is available on PyPI and can be installed via pip.
     $ pip install iotrelay-influxdb
 
 Before using iotrelay-influxdb a database must be
-created. See https://influxdb.com/ for more.
+created. See https://influxdata.com/ for more.
 to the IOT Relay configuration file, ``~/.iotrelay.cfg`` once they have
 been given by InfluxDB.
 
@@ -24,6 +24,7 @@ been given by InfluxDB.
     host = influxdb hostname
     username = influxdb password
     password = influxdb password
+    enable_ssl = True
 
 The ``reading types`` to be relayed to InfluxDB should also be
 registered. In this example, reading types of power and weather will be
