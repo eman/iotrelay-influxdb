@@ -1,5 +1,9 @@
 IoT Relay - InfluxDB
 ----------------------------------------------------------------------------
+
+.. image:: https://api.codacy.com/project/badge/Grade/f0ed9d99e40e4391ab5846d383453701
+   :alt: Codacy Badge
+   :target: https://www.codacy.com/app/emansl/iotrelay-influxdb?utm_source=github.com&utm_medium=referral&utm_content=eman/iotrelay-influxdb&utm_campaign=badger
 version 1.7.0
 
 iotrelay-influxdb is a data handler plugin for IoT Relay. It watches for
