@@ -10,7 +10,7 @@ from influxdb.exceptions import InfluxDBServerError, InfluxDBClientError
 
 logger = logging.getLogger(__name__)
 
-__version__ = "1.7.0"
+__version__ = "1.7.1"
 
 DEFAULT_BATCH_SIZE = 30
 HOST = 'localhost'
